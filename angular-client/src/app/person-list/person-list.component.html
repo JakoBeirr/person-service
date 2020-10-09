@@ -1,0 +1,19 @@
+<h3>Persons</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of persons">
+      <td>{{ person.firstName }}</td>
+      <td>{{ person.lastName }}</td>
+      <td>{{ person.gender }}</td>
+      <td (click)="delete(person.id)" style="cursor: pointer;">x</td>
+    </tr>
+  </tbody>
+</table>

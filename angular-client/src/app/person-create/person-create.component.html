@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()" #personCreate="ngForm">
+  <div class="form-group">
+    <label for="firstName">First name</label>
+    <input type="text" style="margin-left: 5px;" [(ngModel)]="person.firstName"
+           class="form-control"
+           id="firstName"
+           name="firstName"
+           required
+           #firstName="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last name</label>
+    <input type="text" style="margin-left: 5px;" [(ngModel)]="person.lastName"
+           class="form-control"
+           id="lastName"
+           name="lastName"
+           required
+           #lastName="ngModel">
+  </div>
+  <div class="form-group">
+    <label>Gender</label>
+    <input type="radio" style="margin-left: 5px;" value="Male" name="gender" [(ngModel)]="person.gender"> Male
+    <input type="radio" style="margin-left: 5px;" value="Female" name="gender" [(ngModel)]="person.gender"> Female
+    <input type="radio" style="margin-left: 5px;" value="Other" name="gender" [(ngModel)]="person.gender"> Other
+  </div>
+  <button type="submit" [disabled]="!personCreate.form.valid" class="btn btn-info" style="margin-top: 5px;">Submit</button>
+</form>

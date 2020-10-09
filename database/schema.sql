@@ -1,0 +1,6 @@
+CREATE TABLE person (
+  id SERIAL PRIMARY KEY,
+  firstName VARCHAR(250) NOT NULL,
+  lastName VARCHAR(250) NOT NULL,
+  gender VARCHAR(250) DEFAULT NULL
+);

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    container_name: postgres-server
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_PASSWORD=postgres
+  backend:
+    container_name: openjdk8-alpine-server
+    build: ./spring-boot
+    ports:
+      - "8080:8080"
+      - "443:443"
+    links:
+      - "db:db"
+  frontend:
+    container_name: nginx-alpine-server
+    build: ./angular-client
+    ports:
+      - "4200:4200"
+    links:
+      - "backend:backend"
