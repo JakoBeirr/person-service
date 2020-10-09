@@ -1,7 +1,7 @@
 FROM node:alpine as builder
-RUN apk update && apk add --no-cache make git
+RUN apk update
 WORKDIR /app
-COPY package.json package-lock.json  /app/
+COPY package.json package-lock.json /app/
 RUN npm install @angular/cli -g
 RUN cd /app && npm install
 COPY . /app
