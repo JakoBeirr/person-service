@@ -19,9 +19,9 @@
   </div>
   <div class="form-group">
     <label>Gender</label>
-    <input type="radio" style="margin-left: 5px;" value="Male" name="gender" [(ngModel)]="person.gender"> Male
-    <input type="radio" style="margin-left: 5px;" value="Female" name="gender" [(ngModel)]="person.gender"> Female
-    <input type="radio" style="margin-left: 5px;" value="Other" name="gender" [(ngModel)]="person.gender"> Other
+    <div *ngFor="let gender of genders" style="margin-left: 5px; display: inline-block;">
+      <input type="radio" name="gender" [value]="gender.key" [(ngModel)]="person.gender">{{ gender.value }}
+    </div>
   </div>
   <button type="submit" [disabled]="!personCreate.form.valid" class="btn btn-info" style="margin-top: 5px;">Submit</button>
 </form>

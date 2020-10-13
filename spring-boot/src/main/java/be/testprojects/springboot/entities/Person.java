@@ -13,12 +13,13 @@ public class Person {
 
     private String lastName;
 
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String gender) {
+    public Person(String firstName, String lastName, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -36,7 +37,7 @@ public class Person {
         return lastName;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 }

@@ -1,5 +1,6 @@
 package be.testprojects.springboot.controllers;
 
+import be.testprojects.springboot.entities.Gender;
 import be.testprojects.springboot.entities.Person;
 import be.testprojects.springboot.repositories.PersonRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,31 +41,32 @@ public class PersonControllerTest {
     @Test
     public void shouldFindAll() throws Exception {
         // given
-        Person person1 = new Person("First name 1", "Last name 1", "Gender 1");
-        Person person2 = new Person("First name 2", "Last name 2", "Gender 2");
+        Person person1 = new Person("First name 1", "Last name 1", Gender.MALE);
+        Person person2 = new Person("First name 2", "Last name 2", Gender.FEMALE);
         personRepository.save(person1);
         personRepository.save(person2);
 
         // when
-        mvc.perform(get("/person")
+        mvc.perform(get("/persons")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString()))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].firstName", equalTo(person1.getFirstName())))
                 .andExpect(jsonPath("$[0].lastName", equalTo(person1.getLastName())))
-                .andExpect(jsonPath("$[0].gender", equalTo(person1.getGender())))
+                .andExpect(jsonPath("$[0].gender", equalTo(person1.getGender().name())))
                 .andExpect(jsonPath("$[1].firstName", equalTo(person2.getFirstName())))
                 .andExpect(jsonPath("$[1].lastName", equalTo(person2.getLastName())))
-                .andExpect(jsonPath("$[1].gender", equalTo(person2.getGender())));
+                .andExpect(jsonPath("$[1].gender", equalTo(person2.getGender().name())));
     }
 
     @Test
     public void shouldCreate() throws Exception {
         // given
-        Person person = new Person("First name", "Last name", "Gender");
+        Person person = new Person("First name", "Last name", Gender.OTHER);
 
         // when
-        MvcResult result = mvc.perform(post("/person")
+        MvcResult result = mvc.perform(post("/persons")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsBytes(person)))
                 .andReturn();
@@ -81,11 +83,11 @@ public class PersonControllerTest {
     @Test
     public void shouldDelete() throws Exception {
         // given
-        Person person = new Person("First name", "Last name", "Gender");
+        Person person = new Person("First name", "Last name", Gender.OTHER);
         Person createdPerson = personRepository.save(person);
 
         // when
-        MvcResult result = mvc.perform(delete("/person/" + createdPerson.getId()))
+        MvcResult result = mvc.perform(delete("/persons/" + createdPerson.getId()))
                 .andReturn();
 
         // then

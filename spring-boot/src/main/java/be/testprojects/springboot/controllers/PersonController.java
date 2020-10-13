@@ -14,17 +14,17 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/person")
+    @GetMapping("/persons")
     public List<Person> findAll() {
         return personService.findAll();
     }
 
-    @PostMapping("/person")
+    @PostMapping("/persons")
     public void create(@RequestBody Person person) {
         personService.create(person);
     }
 
-    @DeleteMapping("/person/{id}")
+    @DeleteMapping("/persons/{id}")
     public void delete(@PathVariable(value = "id") Long id) {
         personService.delete(id);
     }

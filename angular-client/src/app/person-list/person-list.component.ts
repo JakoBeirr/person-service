@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Person } from '../model/person';
+import { Gender } from '../model/gender.enum';
 import { PersonService } from '../service/person.service';
 
 @Component({
@@ -17,17 +18,26 @@ export class PersonListComponent implements OnInit {
     this.refresh();
   }
 
+  mapGender(gender: String): String {
+    for (let gender in Gender) {
+        if (gender === gender) {
+            return Gender[gender];
+        }
+    }
+    return "Unknown";
+  }
+
   refresh(): void {
     this.personService.findAll().subscribe(
       data => this.persons = data,
-      error => alert(error)
+      error => console.log(error)
     );
   }
 
   delete(id: number): void {
     this.personService.delete(id).subscribe(
       data => this.refresh(),
-      error => alert(error)
+      error => console.log(error)
     );
   }
 }

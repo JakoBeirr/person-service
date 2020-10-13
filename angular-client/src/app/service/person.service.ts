@@ -11,14 +11,14 @@ export class PersonService {
   constructor(private http: HttpClient, private configService: ConfigService) { }
 
   public findAll() {
-    return this.http.get<Person[]>(this.configService.baseUrl + '/person');
+    return this.http.get<Person[]>(this.configService.baseUrl + '/persons');
   }
 
   public create(person: Person) {
-    return this.http.post<Person>(this.configService.baseUrl + '/person', person);
+    return this.http.post<Person>(this.configService.baseUrl + '/persons', person);
   }
 
   public delete(id: number) {
-    return this.http.delete<Person>(this.configService.baseUrl + '/person/' + id);
+    return this.http.delete<Person>(this.configService.baseUrl + '/persons/' + id);
   }
 }
